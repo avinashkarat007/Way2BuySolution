@@ -13,6 +13,7 @@ namespace Way2Buy.Controllers
             return View();
         }
 
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
