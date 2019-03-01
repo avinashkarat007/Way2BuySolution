@@ -16,11 +16,14 @@ namespace Way2Buy.BusinessObjects.Entities
 
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter the product price")]
         public double Price { get; set; }
+
+        public bool IsOfferItem { get; set; }
 
         public double OfferPrice { get; set; }
 
+        [Required]
         public byte[] ImageData { get; set; }
         public string ImageMimeType { get; set; }
     }

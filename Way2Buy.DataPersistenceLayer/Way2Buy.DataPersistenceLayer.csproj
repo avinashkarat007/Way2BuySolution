@@ -50,12 +50,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICategoryRepository.cs" />
+    <Compile Include="Abstract\IProductRepository.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Concrete\EfCategoryRepository.cs" />
     <Compile Include="Concrete\EfDbContext.cs" />
-    <Compile Include="Migrations\201902221305349_FirstMigration.cs" />
-    <Compile Include="Migrations\201902221305349_FirstMigration.Designer.cs">
-      <DependentUpon>201902221305349_FirstMigration.cs</DependentUpon>
+    <Compile Include="Concrete\EfProductRepository.cs" />
+    <Compile Include="Migrations\201902280632335_SecondMigration.cs" />
+    <Compile Include="Migrations\201902280632335_SecondMigration.Designer.cs">
+      <DependentUpon>201902280632335_SecondMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902280654245_SecondMigration1.cs" />
+    <Compile Include="Migrations\201902280654245_SecondMigration1.Designer.cs">
+      <DependentUpon>201902280654245_SecondMigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902280659524_SecondMigration2.cs" />
+    <Compile Include="Migrations\201902280659524_SecondMigration2.Designer.cs">
+      <DependentUpon>201902280659524_SecondMigration2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,8 +82,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902221305349_FirstMigration.resx">
-      <DependentUpon>201902221305349_FirstMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902280632335_SecondMigration.resx">
+      <DependentUpon>201902280632335_SecondMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280654245_SecondMigration1.resx">
+      <DependentUpon>201902280654245_SecondMigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280659524_SecondMigration2.resx">
+      <DependentUpon>201902280659524_SecondMigration2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

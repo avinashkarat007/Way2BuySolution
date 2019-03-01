@@ -24,11 +24,12 @@ namespace Way2Buy.App_Start
             IUnityContainer container = new UnityContainer();
             RegisterServices(container);            
             return container;
-        }
+        } 
 
         private static void RegisterServices(IUnityContainer container)
         {
             container.RegisterType<ICategoryRepository, EfCategoryRepository>();
+            container.RegisterType<IProductRepository, EfProductRepository>();
         }
     }
 }
