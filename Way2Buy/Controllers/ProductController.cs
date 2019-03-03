@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Way2Buy.BusinessObjects.Entities;
 using Way2Buy.DataPersistenceLayer.Abstract;
+using Way2Buy.Models;
 
 namespace Way2Buy.Controllers
 {
@@ -27,7 +28,8 @@ namespace Way2Buy.Controllers
         // GET: Product/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new ProductViewModel();
+            return View(model);
         }
 
         // POST: Product/Create

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,5 +27,10 @@ namespace Way2Buy.BusinessObjects.Entities
         [Required]
         public byte[] ImageData { get; set; }
         public string ImageMimeType { get; set; }
+
+        [Display(Name = "Select Category")]
+        public Category Category { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }

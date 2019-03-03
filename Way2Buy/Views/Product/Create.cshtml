@@ -1,4 +1,4 @@
-﻿@model Way2Buy.BusinessObjects.Entities.Product
+﻿@model Way2Buy.Models.ProductViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -6,12 +6,19 @@
 }
 
 <style>
-    .divOffset {
-        background-color: cadetblue;
-        height: auto;
+    .hiddenDiv {
+        display: none;
     }
 </style>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $('input[type="checkbox"]').click(function () {
+            $(".OfferDiv").toggle();
+        });
+    });
+</script>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -27,20 +34,29 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Product.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Product.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Product.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -56,7 +72,7 @@
                         @Html.ValidationMessageFor(model => model.IsOfferItem, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group hiddenDiv OfferDiv" id="#OfferPriceDiv">
                     @Html.LabelFor(model => model.OfferPrice, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.OfferPrice, new { htmlAttributes = new { @class = "form-control" } })
@@ -66,7 +82,7 @@
                 <div class="form-group">
                     <label>Choose Image</label>
                     <div class="col-md-10">
-                        <input type="file" id="file" class="form-control-file" />
+                        <input type="file" id="file" class="form-control-file btn btn-light" />
                     </div>
                 </div>
 
@@ -92,3 +108,42 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+@*<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery Show Hide Elements Using Checkboxes</title>
+        <style type="text/css">
+        .box{
+            color: #fff;
+            padding: 20px;
+            display: none;
+            margin-top: 20px;
+        }
+        .red{ background: #ff0000; }
+        .green{ background: #228B22; }
+        .blue{ background: #0000ff; }
+        label{ margin-right: 15px; }
+    </style>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('input[type="checkbox"]').click(function(){
+                    var inputValue = $(this).attr("value");
+                    $("." + inputValue).toggle();
+                });
+            });
+        </script>
+    </head>
+    <body>
+    <div>
+        <label><input type="checkbox" name="colorCheckbox" value="red"> red</label>
+        <label><input type="checkbox" name="colorCheckbox" value="green"> green</label>
+        <label><input type="checkbox" name="colorCheckbox" value="blue"> blue</label>
+    </div>
+    <div class="red box">You have selected <strong>red checkbox</strong> so i am here</div>
+    <div class="green box">You have selected <strong>green checkbox</strong> so i am here</div>
+    <div class="blue box">You have selected <strong>blue checkbox</strong> so i am here</div>
+    </body>
+    </html>*@                            
