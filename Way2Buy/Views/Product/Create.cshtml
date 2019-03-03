@@ -6,7 +6,10 @@
 }
 
 <style>
-   
+    .divOffset {
+        background-color: cadetblue;
+        height: auto;
+    }
 </style>
 
 @using (Html.BeginForm())
@@ -14,8 +17,10 @@
     @Html.AntiForgeryToken()
 
     <div class="row">
-        
-        <div class="col-md-9">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-6">
             <form>
                 <h4>Product</h4>
                 <hr />
@@ -73,7 +78,7 @@
             </form>
         </div>
         <div class="col-md-3">
-            <img alt="Phelps" src="~/Images/Michael Phelps.jpeg" style="width: 200px; height: 200px;"/>
+
         </div>
     </div>
 
