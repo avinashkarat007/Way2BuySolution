@@ -7,13 +7,13 @@ namespace Way2Buy.DataPersistenceLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class SecondMigration1 : IMigrationMetadata
+    public sealed partial class UpdateProduct : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SecondMigration1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateProduct));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902280654245_SecondMigration1"; }
+            get { return "201903040726490_UpdateProduct"; }
         }
         
         string IMigrationMetadata.Source

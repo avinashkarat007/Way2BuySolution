@@ -13,13 +13,14 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         $('input[type="checkbox"]').click(function () {
             $(".OfferDiv").toggle();
         });
     });
 </script>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Product",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -48,44 +49,46 @@
                         @Html.ValidationMessageFor(model => model.Product.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Categories, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.Product.CategoryId, new SelectList(Model.Categories, "CategoryId", "CategoryName"), "--Select a category--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Product.CategoryId, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.IsOfferItem, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Product.Price, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.CheckBoxFor(model => model.IsOfferItem, false)
-                        @Html.ValidationMessageFor(model => model.IsOfferItem, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Product.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Product.IsOfferItem, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.Product.IsOfferItem, false)
+                        @Html.ValidationMessageFor(model => model.Product.IsOfferItem, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group hiddenDiv OfferDiv" id="#OfferPriceDiv">
-                    @Html.LabelFor(model => model.OfferPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Product.OfferPrice, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.OfferPrice, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.OfferPrice, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Product.OfferPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product.OfferPrice, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>                
                 <div class="form-group">
                     <label>Choose Image</label>
                     <div class="col-md-10">
-                        <input type="file" id="file" class="form-control-file btn btn-light" />
-                    </div>
-                </div>
+                        <input type="file" name="Image" size="40" class="form-control-file btn btn-light">
+                    </div>                                        
+                    @if (Model.Product!= null && Model.Product.ImageData == null)
+                    {
+                        <div class="form-control-static">No Image</div>
 
+                    }
+                </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <button type="submit" class="btn btn-info">Submit</button>
@@ -97,8 +100,6 @@
 
         </div>
     </div>
-
-
 }
 
 <div>
@@ -109,41 +110,4 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-@*<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>jQuery Show Hide Elements Using Checkboxes</title>
-        <style type="text/css">
-        .box{
-            color: #fff;
-            padding: 20px;
-            display: none;
-            margin-top: 20px;
-        }
-        .red{ background: #ff0000; }
-        .green{ background: #228B22; }
-        .blue{ background: #0000ff; }
-        label{ margin-right: 15px; }
-    </style>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('input[type="checkbox"]').click(function(){
-                    var inputValue = $(this).attr("value");
-                    $("." + inputValue).toggle();
-                });
-            });
-        </script>
-    </head>
-    <body>
-    <div>
-        <label><input type="checkbox" name="colorCheckbox" value="red"> red</label>
-        <label><input type="checkbox" name="colorCheckbox" value="green"> green</label>
-        <label><input type="checkbox" name="colorCheckbox" value="blue"> blue</label>
-    </div>
-    <div class="red box">You have selected <strong>red checkbox</strong> so i am here</div>
-    <div class="green box">You have selected <strong>green checkbox</strong> so i am here</div>
-    <div class="blue box">You have selected <strong>blue checkbox</strong> so i am here</div>
-    </body>
-    </html>*@                            
+                 

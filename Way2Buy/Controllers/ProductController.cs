@@ -13,9 +13,12 @@ namespace Way2Buy.Controllers
     {
         private readonly IProductRepository _dbContextProductRepository;
 
-        public ProductController(IProductRepository dbContextProductRepository)
+        private readonly ICategoryRepository _dbContextCategoryRepository;
+
+        public ProductController(IProductRepository dbContextProductRepository, ICategoryRepository dbContextCategoryRepository)
         {
             _dbContextProductRepository = dbContextProductRepository;
+            _dbContextCategoryRepository = dbContextCategoryRepository;
         }
 
         // GET: Product
@@ -28,16 +31,30 @@ namespace Way2Buy.Controllers
         // GET: Product/Create
         public ActionResult Create()
         {
-            var model = new ProductViewModel();
+            var categories = _dbContextCategoryRepository.Categories.ToList();
+            var model = new ProductViewModel {Categories = categories};
             return View(model);
         }
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase image = null)
         {
-            if (!ModelState.IsValid) return View(product);
-            _dbContextProductRepository.SaveProduct(product);
+            var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+
+            if (ModelState.IsValid)
+            {
+                if (image != null)
+                {
+                    product.ImageMimeType = image.ContentType;
+                    product.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(product.ImageData, 0, image.ContentLength);
+                }
+                _dbContextProductRepository.SaveProduct(product);
+            }
             return RedirectToAction("Index");
         }
 
@@ -82,6 +99,13 @@ namespace Way2Buy.Controllers
         {
             var category = _dbContextProductRepository.DeleteProduct(id);
             return RedirectToAction("Index");
+        }
+
+        public FileContentResult GetImage(int productId)
+        {
+            var prod = _dbContextProductRepository.GetProduct(productId);
+
+            return prod != null ? File(prod.ImageData, prod.ImageMimeType) : null;
         }
     }
 }

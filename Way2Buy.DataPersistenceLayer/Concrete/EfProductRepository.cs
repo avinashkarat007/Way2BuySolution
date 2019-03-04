@@ -10,7 +10,7 @@ namespace Way2Buy.DataPersistenceLayer.Concrete
 {
     public class EfProductRepository : IProductRepository
     {
-        readonly EfDbContext _dbContext = new EfDbContext();
+        private readonly EfDbContext _dbContext = new EfDbContext();
 
         public IEnumerable<Product> Products
         {
@@ -25,13 +25,11 @@ namespace Way2Buy.DataPersistenceLayer.Concrete
             }
             else
             {
-                var category = _dbContext.Products.FirstOrDefault(x => x.ProductId  == product.ProductId);
-                if (category != null)
+                var pdt = _dbContext.Products.FirstOrDefault(x => x.ProductId  == product.ProductId);
+                if (pdt != null)
                 {
-                    category.Name = product.Name;
-                    category.Description = product.Description;
-                    
-
+                    pdt.Name = product.Name;
+                    pdt.Description = product.Description;                    
                 }
             }
             _dbContext.SaveChanges();

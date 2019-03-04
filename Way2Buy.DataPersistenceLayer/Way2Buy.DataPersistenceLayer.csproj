@@ -55,17 +55,17 @@
     <Compile Include="Concrete\EfCategoryRepository.cs" />
     <Compile Include="Concrete\EfDbContext.cs" />
     <Compile Include="Concrete\EfProductRepository.cs" />
-    <Compile Include="Migrations\201902280632335_SecondMigration.cs" />
-    <Compile Include="Migrations\201902280632335_SecondMigration.Designer.cs">
-      <DependentUpon>201902280632335_SecondMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201903040726490_UpdateProduct.cs" />
+    <Compile Include="Migrations\201903040726490_UpdateProduct.Designer.cs">
+      <DependentUpon>201903040726490_UpdateProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902280654245_SecondMigration1.cs" />
-    <Compile Include="Migrations\201902280654245_SecondMigration1.Designer.cs">
-      <DependentUpon>201902280654245_SecondMigration1.cs</DependentUpon>
+    <Compile Include="Migrations\201903041210473_UpdateProduct1.cs" />
+    <Compile Include="Migrations\201903041210473_UpdateProduct1.Designer.cs">
+      <DependentUpon>201903041210473_UpdateProduct1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902280659524_SecondMigration2.cs" />
-    <Compile Include="Migrations\201902280659524_SecondMigration2.Designer.cs">
-      <DependentUpon>201902280659524_SecondMigration2.cs</DependentUpon>
+    <Compile Include="Migrations\201903041228383_UpdateProduct2.cs" />
+    <Compile Include="Migrations\201903041228383_UpdateProduct2.Designer.cs">
+      <DependentUpon>201903041228383_UpdateProduct2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,16 +80,15 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902280632335_SecondMigration.resx">
-      <DependentUpon>201902280632335_SecondMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903040726490_UpdateProduct.resx">
+      <DependentUpon>201903040726490_UpdateProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902280654245_SecondMigration1.resx">
-      <DependentUpon>201902280654245_SecondMigration1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903041210473_UpdateProduct1.resx">
+      <DependentUpon>201903041210473_UpdateProduct1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902280659524_SecondMigration2.resx">
-      <DependentUpon>201902280659524_SecondMigration2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903041228383_UpdateProduct2.resx">
+      <DependentUpon>201903041228383_UpdateProduct2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
