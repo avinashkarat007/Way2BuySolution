@@ -12,7 +12,7 @@ namespace Way2Buy.Models
     {
         public Product Product { get; set; }
 
-        [Display(Name = "Select the category")]
+        [Display(Name = "Category")]
         public List<Category> Categories { get; set; }
     }
 }

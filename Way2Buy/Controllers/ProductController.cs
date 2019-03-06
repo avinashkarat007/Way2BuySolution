@@ -29,16 +29,22 @@ namespace Way2Buy.Controllers
         }
 
         // GET: Product/Create
-        public ActionResult Create()
+        public ActionResult Create(int? productId)
         {
+            var model = new ProductViewModel();
             var categories = _dbContextCategoryRepository.Categories.ToList();
-            var model = new ProductViewModel {Categories = categories};
-            return View(model);
+            model.Categories = categories;
+            if (productId.HasValue)
+            {
+                var product = _dbContextProductRepository.GetProduct(productId.Value);
+                model.Product = product;                
+            }
+            return View("Save", model);
         }
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(Product product, HttpPostedFileBase image = null)
+        public ActionResult Save(Product product, HttpPostedFileBase image = null)
         {
             var errors = ModelState
                 .Where(x => x.Value.Errors.Count > 0)
@@ -56,29 +62,6 @@ namespace Way2Buy.Controllers
                 _dbContextProductRepository.SaveProduct(product);
             }
             return RedirectToAction("Index");
-        }
-
-        // GET: Product/Edit/5
-        public ActionResult Edit(int id)
-        {
-            var product = _dbContextProductRepository.GetProduct(id);
-            return View(product);
-        }
-
-        // POST: Product/Edit/5
-        [HttpPost]
-        public ActionResult Edit(Product product)
-        {
-            try
-            {
-                if (!ModelState.IsValid) return View(product);
-                _dbContextProductRepository.SaveProduct(product);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Admin/Delete/5

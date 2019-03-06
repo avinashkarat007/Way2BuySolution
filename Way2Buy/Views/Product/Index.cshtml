@@ -32,11 +32,11 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <img src="@Url.Action("GetImage","Product", new { productId= item.ProductId })" height="100" width="100" />
+                <img src="@Url.Action("GetImage","Product", new { productId= item.ProductId })" height="50" width="50" />
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |            
-                @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+                @Html.ActionLink("Edit", "Create", new { productId = item.ProductId }) |            
+                @Html.ActionLink("Delete", "Delete", new { productId = item.ProductId })
             </td>
         </tr>
     }

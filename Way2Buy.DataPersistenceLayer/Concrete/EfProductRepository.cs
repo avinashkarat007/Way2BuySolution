@@ -29,7 +29,13 @@ namespace Way2Buy.DataPersistenceLayer.Concrete
                 if (pdt != null)
                 {
                     pdt.Name = product.Name;
-                    pdt.Description = product.Description;                    
+                    pdt.Description = product.Description;
+                    pdt.CategoryId = product.CategoryId;
+                    pdt.Price = product.Price;
+                    pdt.IsOfferItem = product.IsOfferItem;
+                    pdt.OfferPrice = product.OfferPrice;
+                    pdt.ImageData = product.ImageData;
+                    pdt.ImageMimeType = product.ImageMimeType;
                 }
             }
             _dbContext.SaveChanges();
