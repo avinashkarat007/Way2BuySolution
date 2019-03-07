@@ -34,8 +34,11 @@ namespace Way2Buy.DataPersistenceLayer.Concrete
                     pdt.Price = product.Price;
                     pdt.IsOfferItem = product.IsOfferItem;
                     pdt.OfferPrice = product.OfferPrice;
-                    pdt.ImageData = product.ImageData;
-                    pdt.ImageMimeType = product.ImageMimeType;
+                    if (product.ImageData!= null)
+                    {
+                        pdt.ImageData = product.ImageData;
+                        pdt.ImageMimeType = product.ImageMimeType;
+                    }
                 }
             }
             _dbContext.SaveChanges();

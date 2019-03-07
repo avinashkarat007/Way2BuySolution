@@ -6,7 +6,7 @@
 }
 
 <style>
-    .invisibleDiv, #justSelectedImage {
+    .invisibleDiv, .justSelectedImage {
         display: none;
     }
 
@@ -28,6 +28,10 @@
             $(".OfferDiv").toggle();
         });
        
+        if ($("#Product_IsOfferItem").is(':checked')) {
+            $(".OfferDiv").toggle();
+        }
+
 
         $('input[type="file"]').change(function () {
 
@@ -35,15 +39,17 @@
                 var reader = new FileReader();
 
                 $(".ImageOnEdit").hide();
-                $("#justSelectedImage").show();
+                $(".justSelectedImage").show();
                 
                 reader.onload = function (e) {
-                    $('#justSelectedImage')
+                    $('.justSelectedImage')
                         .attr('src', e.target.result)
-                        .width(100)
-                        .height(100);
+                        .width(150)
+                        .height(150);
                 };
                 reader.readAsDataURL(this.files[0]);
+
+                $("#justSelectedImage").show();
             }
         });
               
@@ -85,7 +91,7 @@
                             <div class="row">
                                 @Html.LabelFor(model => model.Product.Description, htmlAttributes: new { @class = "col-form-label col-sm-3" })
                                 <div class="col-sm-9">
-                                    @Html.EditorFor(model => model.Product.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.TextAreaFor(model => model.Product.Description, new { @class = "form-control", rows = "3" })
                                     @Html.ValidationMessageFor(model => model.Product.Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -130,25 +136,21 @@
                             <div class="row">
                                 <label class="col-form-label">Choose Image</label>
                                 <input type="file" name="Image" id="imgUpload" size="40" class="form-control-file btn btn-light">
-                                @if (Model.Product == null)
-                                {
-                                    <span>
-                                        <img id="justSelectedImage" class="photo" alt="imageLoading.." width="100" height="100" />
-                                    </span>
-
-                                }
-                                else
-                                {
+                                <span>
+                                    <img class="justSelectedImage" alt="imageLoading.." width="100" height="100" />
+                                </span>
+                                @if (Model.Product != null)
+                                {                                                                    
                                     <span class="form-control-static ImageOnEdit">
                                         <img src="@if (Model.Product.ImageData != null)
-                                                      {
-                                                          @Url.Action("GetImage", "Product", new {productId = Model.Product.ProductId})
-                                                      }" height="150" width="150" />
+                                                  {
+                                                      @Url.Action("GetImage", "Product", new {productId = Model.Product.ProductId})
+                                                  }" height="150" width="150" />
                                     </span>
                                 }
                             </div>
                         </div>
-                        <div class="form-group col-sm-9 hiddenDiv OfferDiv" id="#OfferPriceDiv">
+                        <div class="form-group col-sm-9">
                             <div class="row">
 
                                 <div class="col-sm-9">

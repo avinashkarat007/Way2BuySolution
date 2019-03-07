@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Way2Buy.BusinessObjects.Entities;
+using Way2Buy.HTMLHelpers;
 
 namespace Way2Buy.Models
 {
@@ -13,6 +14,6 @@ namespace Way2Buy.Models
         public Product Product { get; set; }
 
         [Display(Name = "Category")]
-        public List<Category> Categories { get; set; }
+        public List<Category> Categories { get; set; }        
     }
 }

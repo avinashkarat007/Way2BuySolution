@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Way2Buy.BusinessObjects.Entities;
 using Way2Buy.DataPersistenceLayer.Abstract;
+using Way2Buy.HTMLHelpers;
 using Way2Buy.Models;
 
 namespace Way2Buy.Controllers
@@ -15,6 +16,8 @@ namespace Way2Buy.Controllers
 
         private readonly ICategoryRepository _dbContextCategoryRepository;
 
+        public int PageSize = 5;
+
         public ProductController(IProductRepository dbContextProductRepository, ICategoryRepository dbContextCategoryRepository)
         {
             _dbContextProductRepository = dbContextProductRepository;
@@ -22,10 +25,23 @@ namespace Way2Buy.Controllers
         }
 
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            var products = _dbContextProductRepository.Products.ToList();
-            return View(products);
+            var model = new ProductListViewModel
+            {
+                Products = _dbContextProductRepository.Products
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize)
+                    .ToList(),
+                PageInfo = new PageInfo
+                {
+                    TotalItems = _dbContextProductRepository.Products.Count(),
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize
+                }
+            };
+
+            return View(model);
         }
 
         // GET: Product/Create
@@ -37,7 +53,7 @@ namespace Way2Buy.Controllers
             if (productId.HasValue)
             {
                 var product = _dbContextProductRepository.GetProduct(productId.Value);
-                model.Product = product;                
+                model.Product = product;
             }
             return View("Save", model);
         }

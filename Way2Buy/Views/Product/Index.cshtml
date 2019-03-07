@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Way2Buy.BusinessObjects.Entities.Product>
+﻿@model Way2Buy.Models.ProductListViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -7,15 +7,15 @@
 
 <h2> Products </h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { @class = "btn btn-primary btn-large" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayName("Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayName("Price")
         </th>
         <th>
             @Html.DisplayName("ProductImage")
@@ -23,13 +23,13 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model) {
+    @foreach (var item in Model.Products.ToList()) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 <img src="@Url.Action("GetImage","Product", new { productId= item.ProductId })" height="50" width="50" />
@@ -40,5 +40,9 @@
             </td>
         </tr>
     }
-
+   
 </table>
+
+<div>
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+</div>

@@ -24,6 +24,7 @@ namespace Way2Buy.BusinessObjects.Entities
 
         public bool IsOfferItem { get; set; }
 
+
         public double? OfferPrice { get; set; }
         
         public byte[] ImageData { get; set; }
@@ -31,5 +32,7 @@ namespace Way2Buy.BusinessObjects.Entities
 
         [Required(ErrorMessage = "Please select a category")]
         public int CategoryId { get; set; }
+
+        public List<Review> Reviews { get; set; }
     }
 }
