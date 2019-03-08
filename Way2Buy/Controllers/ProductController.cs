@@ -29,7 +29,7 @@ namespace Way2Buy.Controllers
         {
             var model = new ProductListViewModel
             {
-                Products = _dbContextProductRepository.Products
+                Products = _dbContextProductRepository.Products                    
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize)
                     .ToList(),
