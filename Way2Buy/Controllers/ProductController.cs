@@ -20,7 +20,7 @@ namespace Way2Buy.Controllers
 
         public ProductController(IProductRepository dbContextProductRepository, ICategoryRepository dbContextCategoryRepository)
         {
-            _dbContextProductRepository = dbContextProductRepository;
+            _dbContextProductRepository = dbContextProductRepository; 
             _dbContextCategoryRepository = dbContextCategoryRepository;
         }
 
