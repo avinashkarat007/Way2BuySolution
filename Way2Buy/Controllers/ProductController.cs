@@ -10,6 +10,7 @@ using Way2Buy.Models;
 
 namespace Way2Buy.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductRepository _dbContextProductRepository;
