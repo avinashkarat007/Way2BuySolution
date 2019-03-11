@@ -16,7 +16,7 @@ namespace Way2Buy.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private IAuthProvider _IAuthProvider;
+        private readonly IAuthProvider _iAuthProvider;
 
         public AccountController()
         {
@@ -25,13 +25,13 @@ namespace Way2Buy.Controllers
 
         public AccountController(IAuthProvider authProvider)
         {
-            _IAuthProvider = authProvider;
+            _iAuthProvider = authProvider;
         }
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult VerifyLogin(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View("Login");
@@ -44,20 +44,14 @@ namespace Way2Buy.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_IAuthProvider.Authenticate(model.UserName, model.Password))
+                if (_iAuthProvider.Authenticate(model.UserName, model.Password))
                 {
                     return (Redirect(returnUrl ?? Url.Action("Index", "Product")));
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Incorrect Username or Password");
-                    return View("Login");
-                }
-            }
-            else
-            {
+                ModelState.AddModelError("", "Incorrect Username or Password");
                 return View("Login");
             }
+            return View("Login");
         }
     }
 }

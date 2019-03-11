@@ -12,6 +12,7 @@ using Way2Buy.DataPersistenceLayer.Concrete;
 
 namespace Way2Buy.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _dbCategoryRepository;
