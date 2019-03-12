@@ -1,47 +1,104 @@
-﻿@model Way2Buy.Models.ProductListViewModel
+﻿@using System.Web.UI.WebControls
+@model Way2Buy.Models.ProductListViewModel
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2> Products </h2>
-<p>
-    @Html.ActionLink("Create New", "Create", new { @class = "btn btn-primary btn-large" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Name")
-        </th>
-        <th>
-            @Html.DisplayName("Price")
-        </th>
-        <th>
-            @Html.DisplayName("ProductImage")
-        </th>
-        <th></th>
-    </tr>
+<style>
+    .top-buffer { margin-top:20px; }
 
-    @foreach (var item in Model.Products.ToList()) {
+</style>
+
+<h2> Products </h2>
+<div class="row float-right">
+    <div class="col">
+        <p>
+            @Html.ActionLink("Create New", "Create","Product",null, new { @class = "btn btn-success" })
+        </p>
+    </div>
+</div>
+<div style="clear: both;">
+    
+</div>
+<div class="row top-buffer">
+    
+</div>
+<div class="row">
+    <div class="col-3">       
+        <div class="row">            
+            <div class="col-sm-9 col-md-9 col-lg-9">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">                            
+            </div>
+            <div class="col-sm-3 col-sm-3 col-lg-3">
+                @Html.ActionLink("Search", "Create", "Product", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>        
+    </div>
+    <div class="col-3">
+       
+    </div>
+    <div class="col-6">        
+        <div class="row float-right">
+            <h6>
+                No. Of Items Per Page
+            </h6>
+            <div class="col-6">
+                @{var listItems = new List<SelectListItem>
+                  {
+                      new SelectListItem {Text = "5", Value = "5"},
+                      new SelectListItem {Text = "10", Value = "10"},
+                      new SelectListItem {Text = "15", Value = "15"}
+                  }; }
+
+                @Html.DropDownList("ItemsPerPage", listItems, "--Select--", new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row top-buffer">
+    
+</div>
+
+<div class="container-fluid">
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <img src="@Url.Action("GetImage","Product", new { productId= item.ProductId })" height="50" width="50" />
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Create", new { productId = item.ProductId }) |            
-                @Html.ActionLink("Delete", "Delete", new { productId = item.ProductId })
-            </td>
+            <th>
+                @Html.DisplayName("Name")
+            </th>
+            <th>
+                @Html.DisplayName("Price")
+            </th>
+            <th>
+                @Html.DisplayName("ProductImage")
+            </th>
+            <th>
+                @Html.DisplayName("Actions")
+            </th>
         </tr>
-    }
-   
-</table>
+
+        @foreach (var item in Model.Products.ToList())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <img src="@Url.Action("GetImage","Product", new { productId= item.ProductId })" height="50" width="50" />
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Create", new { productId = item.ProductId }) |
+                    @Html.ActionLink("Delete", "Delete", new { productId = item.ProductId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 
 <div>
     @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))

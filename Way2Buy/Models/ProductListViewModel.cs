@@ -13,4 +13,11 @@ namespace Way2Buy.Models
 
         public PageInfo PageInfo { get; set; }
     }
+
+    public enum PageCount
+    {       
+       Five,
+       Ten,
+       Fifteen
+    }
 }

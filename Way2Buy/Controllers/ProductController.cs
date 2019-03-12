@@ -16,8 +16,7 @@ namespace Way2Buy.Controllers
         private readonly IProductRepository _dbContextProductRepository;
 
         private readonly ICategoryRepository _dbContextCategoryRepository;
-
-        public int PageSize = 5;
+        
 
         public ProductController(IProductRepository dbContextProductRepository, ICategoryRepository dbContextCategoryRepository)
         {
@@ -26,19 +25,19 @@ namespace Way2Buy.Controllers
         }
 
         // GET: Product
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int page = 1, int pageSize = 5)
         {
             var model = new ProductListViewModel
             {
                 Products = _dbContextProductRepository.Products                    
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToList(),
                 PageInfo = new PageInfo
                 {
                     TotalItems = _dbContextProductRepository.Products.Count(),
                     CurrentPage = page,
-                    ItemsPerPage = PageSize
+                    ItemsPerPage = pageSize
                 }
             };
 
