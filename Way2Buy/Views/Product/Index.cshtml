@@ -12,6 +12,20 @@
     }
 </style>
 
+<script>
+    $(document).ready(function() {
+        
+        $('#ItemsPerPage').on('change', function (event) {
+
+            var form = $(event.target).parents('form');
+
+            var selectedValue = $(this).find('option:selected').text();
+
+            form.submit();
+        });
+    });
+</script>
+
 <h2> Products </h2>
 <div class="row float-right">
     <div class="col">
@@ -30,13 +44,11 @@
     <div class="col-sm-8 col-md-8 col-lg-8">
         @using (Html.BeginForm("Index", "Product"))
         {
-
-
             <div class="row">
                 <div class="input-group">
                     <input class="form-control input-group-lg w-100 p-3" style="max-width: 50%;" id="nameSearch" name="nameSearch" type="text" placeholder="Search..">
                     <span class="ml-3">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </span>
                 </div>
 
@@ -50,14 +62,18 @@
                 <h6>Items Per Page</h6>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
-                @{var listItems = new List<SelectListItem>
-                  {
-                      new SelectListItem {Text = "5", Value = "5"},
-                      new SelectListItem {Text = "10", Value = "10"},
-                      new SelectListItem {Text = "15", Value = "15"}
-                  }; }
+            @using (Html.BeginForm("Index", "Product"))
+            {                                
+                    var listItems = new List<SelectListItem>
+                    {
+                        new SelectListItem {Text = "5", Value = "5"},
+                        new SelectListItem {Text = "10", Value = "10"},
+                        new SelectListItem {Text = "15", Value = "15"}
+                    };                
+                @Html.DropDownList("ItemsPerPage", listItems, "--Select--", new {@class = "form-control", style = "width: 130px;"})
 
-                @Html.DropDownList("ItemsPerPage", listItems, "--Select--", new { @class = "form-control", style = "width: 130px;" })
+                
+            }
             </div>
         </div>
     </div>
