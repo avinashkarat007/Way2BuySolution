@@ -7,47 +7,49 @@
 }
 
 <style>
-    .top-buffer { margin-top:20px; }
-
+    .top-buffer {
+        margin-top: 20px;
+    }
 </style>
 
 <h2> Products </h2>
 <div class="row float-right">
     <div class="col">
         <p>
-            @Html.ActionLink("Create New", "Create","Product",null, new { @class = "btn btn-success" })
+            @Html.ActionLink("Create New", "Create", "Product", null, new { @class = "btn btn-success" })
         </p>
     </div>
 </div>
 <div style="clear: both;">
-    
+
 </div>
 <div class="row top-buffer">
-    
+
 </div>
 <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6">       
-        <div class="row">            
-            @*<div class="col-sm-9 col-md-9 col-lg-9">
-                
+    <div class="col-sm-8 col-md-8 col-lg-8">
+        @using (Html.BeginForm("Index", "Product"))
+        {
+
+
+            <div class="row">
+                <div class="input-group">
+                    <input class="form-control input-group-lg w-100 p-3" style="max-width: 50%;" id="nameSearch" name="nameSearch" type="text" placeholder="Search..">
+                    <span class="ml-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </span>
+                </div>
+
             </div>
-            <div class="col-sm-3 col-sm-3 col-lg-3">
-                @Html.ActionLink("Search", "Create", "Product", null, new { @class = "btn btn-primary" })
-            </div>*@
-            <div class="input-group">
-                <input class="form-control" id="myInput" type="text" placeholder="Search..">                            
-                <span class="input-group-btn offset-1">
-                    @Html.ActionLink("Search", "Create", "Product", null, new { @class = "btn btn-primary" })
-                </span>
-            </div>
-        </div>        
+        }
     </div>
-    <div class="col-6">        
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
         <div class="row float-right">
-            <h6>
-                No. Of Items Per Page
-            </h6>
-            <div class="col-6">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <h6>Items Per Page</h6>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
                 @{var listItems = new List<SelectListItem>
                   {
                       new SelectListItem {Text = "5", Value = "5"},
@@ -55,13 +57,13 @@
                       new SelectListItem {Text = "15", Value = "15"}
                   }; }
 
-                @Html.DropDownList("ItemsPerPage", listItems, "--Select--", new { @class = "form-control", style = "width: 150px;" })
+                @Html.DropDownList("ItemsPerPage", listItems, "--Select--", new { @class = "form-control", style = "width: 130px;" })
             </div>
         </div>
     </div>
 </div>
 <div class="row top-buffer">
-    
+
 </div>
 
 <div class="container-fluid">
@@ -81,28 +83,39 @@
             </th>
         </tr>
 
-        @foreach (var item in Model.Products.ToList())
+        @if (!Model.Products.Any())
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <img src="@Url.Action("GetImage","Product", new { productId= item.ProductId })" height="50" width="50" />
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Create", new { productId = item.ProductId }) |
-                    @Html.ActionLink("Delete", "Delete", new { productId = item.ProductId })
-                </td>
+                <td><h6> No records found</h6></td>
             </tr>
         }
-
+        else
+        {
+            foreach (var item in Model.Products.ToList())
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <img src="@Url.Action("GetImage", "Product", new {productId = item.ProductId})" height="50" width="50" />
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Create", new { productId = item.ProductId }) |
+                        @Html.ActionLink("Delete", "Delete", new { productId = item.ProductId })
+                    </td>
+                </tr>
+            }
+        }
     </table>
 </div>
 
-<div>
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
-</div>
+@if (Model.Products.Any())
+{
+    <div>
+        @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+    </div>
+}

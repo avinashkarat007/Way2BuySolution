@@ -25,21 +25,26 @@ namespace Way2Buy.Controllers
         }
 
         // GET: Product
-        public ActionResult Index(int page = 1, int pageSize = 5)
+        public ActionResult Index(string nameSearch, int page = 1, int pageSize = 5)
         {
             var model = new ProductListViewModel
             {
-                Products = _dbContextProductRepository.Products                    
+                Products = _dbContextProductRepository.Products         
+                    .Where(p => p.Name.Trim() == nameSearch || nameSearch == null || nameSearch == "")           
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToList(),
                 PageInfo = new PageInfo
                 {
-                    TotalItems = _dbContextProductRepository.Products.Count(),
+                    TotalItems = _dbContextProductRepository.Products.Count(p => p.Name.Trim() == nameSearch || nameSearch == null || nameSearch == ""),
                     CurrentPage = page,
                     ItemsPerPage = pageSize
                 }
             };
+
+            var someList = _dbContextProductRepository.Products
+                .Where(p => p.Name == nameSearch)
+                .ToList();
 
             return View(model);
         }

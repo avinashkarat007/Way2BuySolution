@@ -9,15 +9,6 @@
     .invisibleDiv, .justSelectedImage {
         display: none;
     }
-
-    .photo {
-        width: 7em;
-        height: 7em;
-        border: 1px solid rgb(197, 197, 197);
-        border-radius: 4px 4px 4px 4px;
-        float: right;
-        position: relative;
-    }
 </style>
 
 <script type="text/javascript">
@@ -123,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-sm-9 hiddenDiv OfferDiv invisibleDiv">
+                        <div class="form-group col-sm-9 OfferDiv invisibleDiv">
                             <div class="row">
                                 @Html.LabelFor(model => model.Product.OfferPrice, htmlAttributes: new { @class = "col-form-label col-sm-3" })
                                 <div class="col-sm-9">
