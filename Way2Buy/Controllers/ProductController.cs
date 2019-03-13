@@ -27,16 +27,21 @@ namespace Way2Buy.Controllers
         // GET: Product
         public ActionResult Index(string nameSearch, int page = 1, int pageSize = 5)
         {
+            if (!string.IsNullOrEmpty(nameSearch))
+            {
+                nameSearch = nameSearch.ToLower();
+            }
+
             var model = new ProductListViewModel
             {
-                Products = _dbContextProductRepository.Products         
-                    .Where(p => p.Name.ToLower().Trim().StartsWith(nameSearch != null ? nameSearch.ToLower() : nameSearch) || nameSearch == null || nameSearch == "")           
+                Products = _dbContextProductRepository.Products                    
+                    .Where(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == "")
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToList(),
                 PageInfo = new PageInfo
                 {
-                    TotalItems = _dbContextProductRepository.Products.Count(p => p.Name.StartsWith(nameSearch != null ? nameSearch.ToLower() : nameSearch) || nameSearch == null || nameSearch == ""),
+                    TotalItems = _dbContextProductRepository.Products.Count(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == ""),
                     CurrentPage = page,
                     ItemsPerPage = pageSize
                 }
