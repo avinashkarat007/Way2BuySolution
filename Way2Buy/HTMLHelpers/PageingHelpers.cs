@@ -14,16 +14,29 @@ namespace Way2Buy.HTMLHelpers
             var result = new StringBuilder();
             for (var i = 1; i <= pageInfo.TotalPages; i++)
             {
-                var tag = new TagBuilder("a");
-                tag.MergeAttribute("href", pageUrl(i));
-                tag.InnerHtml = i.ToString();
                 if (i == pageInfo.CurrentPage)
                 {
+                    var tag = new TagBuilder("span") {InnerHtml = i.ToString()};
+
                     tag.AddCssClass("selected");
                     tag.AddCssClass("btn-primary");
+
+                    tag.AddCssClass("btn btn-default");
+                    result.Append(tag);
                 }
-                tag.AddCssClass("btn btn-default");
-                result.Append(tag.ToString());
+                else
+                {
+                    var tag = new TagBuilder("a");
+                    tag.MergeAttribute("href", pageUrl(i));
+                    tag.InnerHtml = i.ToString();
+                    if (i == pageInfo.CurrentPage)
+                    {
+                        tag.AddCssClass("selected");
+                        tag.AddCssClass("btn-primary");
+                    }
+                    tag.AddCssClass("btn btn-default");
+                    result.Append(tag);
+                }
             }
             return MvcHtmlString.Create(result.ToString());
         }

@@ -1,0 +1,40 @@
+﻿@model Way2Buy.Models.ProductListViewModel
+
+    
+@if (!Model.Products.Any())
+{
+    <tr>
+        <td><h6> No records found</h6></td>
+    </tr>
+}
+else
+{
+    foreach (var item in Model.Products.ToList())
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <img src="@Url.Action("GetImage", "Product", new {productId = item.ProductId})" height="50" width="50" alt=""/>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Create", new { productId = item.ProductId }) |
+                @Html.ActionLink("Delete", "Delete", new { productId = item.ProductId })
+            </td>
+        </tr>
+    }
+
+    <tr>
+        @if (Model.Products.Any())
+        {
+            <td>
+                @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+            </td>
+        }
+    </tr>
+}
+
