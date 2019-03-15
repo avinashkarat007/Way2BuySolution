@@ -80,57 +80,17 @@
             </th>
         </tr>
         <tbody id="productRow">
-        @if (!Model.Products.Any())
-        {
-            <tr>
-                <td><h6> No records found</h6></td>
-            </tr>
-        }
-        else
-        {
-            foreach (var item in Model.Products.ToList())
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        <img src="@Url.Action("GetImage", "Product", new {productId = item.ProductId})" height="50" width="50" alt=""/>
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Create", new { productId = item.ProductId }) |
-                        @Html.ActionLink("Delete", "Delete", new { productId = item.ProductId })
-                    </td>
-                </tr>
-            }
-
-            <tr>
-                @if (Model.Products.Any())
-                {
-                    <td>
-                        @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
-                    </td>
-                }
-            </tr>
-        }
+            @Html.Partial("ProductListPartial", Model)
         </tbody>
 
     </table>
 </div>
 
-
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
-
 <script>
     $(document).ready(function () {
 
         // Auto complete event for search term.
-        $("#nameSearch").autocomplete({
+        @*$("#nameSearch").autocomplete({
             source: function (request, response) {
                 $.ajax({
                     url: '@Url.Action("GetProductNames", "Product")',
@@ -149,62 +109,59 @@
                     }
                 });
             }
-        });
-
+        });*@
 
         $('#ItemsPerPage').on('change', function (event) {
             var resultValue = $('#ItemsPerPage').val();
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("GetSearchActionResult", "Product")",
-            data: {
-                pageSize: resultValue
-            },
-            success: function (data) {
-                $("#productRow").html(data);
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
+                data: {
+                    pageSize: resultValue
+                },
+                success: function (data) {
+                    $("#productRow").html(data);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
         });
-    });
 
-    $("#btnSubmit").on("click",function () {
-        var searchTerm = $("#nameSearch").val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("GetSearchActionResult", "Product")",
-            data: {
-                nameSearch: searchTerm
-            },
-            success: function (data) {
-                $("#productRow").html(data);
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
+        $("#btnSubmit").on("click", function () {
+            var searchTerm = $("#nameSearch").val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetSearchActionResult", "Product")",
+                data: {
+                    nameSearch: searchTerm
+                },
+                success: function (data) {
+                    $("#productRow").html(data);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
         });
-    });
 
-
-    $(document).on("click", "a.pagination-link", function () {
-        var pageNumber = $(this).text();
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("GetSearchActionResult", "Product")",
-            data: {
-                page: pageNumber,
-                pageSize: $("#ItemsPerPage").val()
-            },
-            success: function (data) {
-                $("#productRow").html(data);
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                alert("on error");
-                alert(errorThrown);
-            }
+        $(document).on("click", "a.pagination-link", function () {
+            var pageNumber = $(this).text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetSearchActionResult", "Product")",
+                data: {
+                    page: pageNumber,
+                    pageSize: $("#ItemsPerPage").val()
+                },
+                success: function (data) {
+                    $("#productRow").html(data);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    alert("on error");
+                    alert(errorThrown);
+                }
+            });
         });
-    });
     });
 </script>
