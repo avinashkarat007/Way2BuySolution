@@ -76,6 +76,16 @@ namespace Way2Buy.Controllers
             return PartialView("ProductListPartial", model);
         }
 
+        [HttpPost]
+        public JsonResult GetProductNames(string prefixTerm)
+        {
+            var productNames = _dbContextProductRepository.Products
+                .Where(x => x.Name.ToLower().Trim().StartsWith(prefixTerm))
+                .Select(x => new {x.Name, x.ProductId})
+                .ToList();
+
+            return Json(productNames, JsonRequestBehavior.AllowGet);
+        }
 
         // GET: Product/Create
         public ActionResult Create(int? productId)
