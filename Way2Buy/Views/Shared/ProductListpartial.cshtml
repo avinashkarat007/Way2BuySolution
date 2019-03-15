@@ -1,5 +1,4 @@
 ﻿@model Way2Buy.Models.ProductListViewModel
-
     
 @if (!Model.Products.Any())
 {
@@ -32,7 +31,7 @@ else
         @if (Model.Products.Any())
         {
             <td>
-                @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+                @Html.PageLinksForSearchPage(Model.PageInfo)
             </td>
         }
     </tr>

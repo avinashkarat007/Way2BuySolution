@@ -24,7 +24,7 @@ namespace Way2Buy.Controllers
             _dbContextCategoryRepository = dbContextCategoryRepository;
         }
 
-        // GET: Product
+        [AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
         public ActionResult Index(string nameSearch, int page = 1, int pageSize = 5)
         {
             if (!string.IsNullOrEmpty(nameSearch))
@@ -49,8 +49,8 @@ namespace Way2Buy.Controllers
 
             return View(model);
         }
-        
-        [HttpPost]
+
+        [AcceptVerbs(HttpVerbs.Post|HttpVerbs.Get)]
         public ActionResult GetSearchActionResult(string nameSearch, int page = 1, int pageSize = 5)
         {
             if (!string.IsNullOrEmpty(nameSearch))
@@ -62,6 +62,8 @@ namespace Way2Buy.Controllers
             {
                 Products = _dbContextProductRepository.Products
                     .Where(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == "")
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToList(),
                 PageInfo = new PageInfo
                 {
