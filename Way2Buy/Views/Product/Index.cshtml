@@ -7,11 +7,10 @@
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<style>
-    .top-buffer {
-        margin-top: 20px;
-    }
-</style>
+
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+<script src='https://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/js/jquery.circliful.min.js'></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 <h2> Products </h2>
 <div class="row float-right">
@@ -94,7 +93,7 @@
             source: function (request, response) {
                 $.ajax({
                     url: '@Url.Action("GetProductNames", "Product")',
-                    type: "POST",
+                    type: "GET",
                     dataType: "json",
                     data: { search: $("#nameSearch").val() },
                     success: function (data) {
@@ -137,7 +136,9 @@
                     nameSearch: searchTerm
                 },
                 success: function (data) {
+                    $("#productRow").hide();
                     $("#productRow").html(data);
+                    $("#productRow").show();
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
                     alert(errorThrown);
