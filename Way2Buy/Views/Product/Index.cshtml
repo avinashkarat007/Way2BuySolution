@@ -7,11 +7,6 @@
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
-<script src='https://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/js/jquery.circliful.min.js'></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-
 <h2> Products </h2>
 <div class="row float-right">
     <div class="col">
@@ -85,6 +80,7 @@
     </table>
 </div>
 
+
 <script>
     $(document).ready(function () {
 
@@ -109,6 +105,15 @@
                 });
             }
         });*@
+
+
+        $("#nameSearch").autocomplete({
+            source: '@Url.Action("GetProductNames", "Product")',
+            classes: {
+                "ui-autocomplete": "highlight"
+            }
+        });
+
 
         $('#ItemsPerPage').on('change', function (event) {
             var resultValue = $('#ItemsPerPage').val();
