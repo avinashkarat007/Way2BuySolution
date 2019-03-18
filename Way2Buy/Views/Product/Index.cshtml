@@ -7,7 +7,9 @@
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2> Products </h2>
+<div>
+    <h2> Products </h2>
+</div>
 <div class="row float-right">
     <div class="col">
         <p>
@@ -16,10 +18,8 @@
     </div>
 </div>
 <div style="clear: both;">
-
 </div>
 <div class="row top-buffer">
-
 </div>
 <div class="row">
     <div class="col-sm-8 col-md-8 col-lg-8">
@@ -33,7 +33,6 @@
 
         </div>
     </div>
-
     <div class="col-sm-4 col-md-4 col-lg-4">
         <div class="row float-right">
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -54,9 +53,7 @@
     </div>
 </div>
 <div class="row top-buffer">
-
 </div>
-
 <div class="container-fluid">
     <table class="table table-hover">
         <tr>
@@ -80,33 +77,10 @@
     </table>
 </div>
 
-
 <script>
     $(document).ready(function () {
 
-        // Auto complete event for search term.
-        @*$("#nameSearch").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: '@Url.Action("GetProductNames", "Product")',
-                    type: "GET",
-                    dataType: "json",
-                    data: { search: $("#nameSearch").val() },
-                    success: function (data) {
-                        alert("inside success");
-
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Name };
-                        }));
-                    },
-                    error: function (xhr, status, error) {
-                        alert("Error");
-                    }
-                });
-            }
-        });*@
-
-
+        // Autocomplete event on search text box.
         $("#nameSearch").autocomplete({
             source: '@Url.Action("GetProductNames", "Product")',
             classes: {
@@ -114,7 +88,7 @@
             }
         });
 
-
+        // Items per page click.
         $('#ItemsPerPage').on('change', function (event) {
             var resultValue = $('#ItemsPerPage').val();
             $.ajax({
@@ -132,6 +106,7 @@
             });
         });
 
+        // Search button's submit click event
         $("#btnSubmit").on("click", function () {
             var searchTerm = $("#nameSearch").val();
             $.ajax({
@@ -151,6 +126,7 @@
             });
         });
 
+        // Pagination click event.
         $(document).on("click", "a.pagination-link", function () {
             var pageNumber = $(this).text();
             $.ajax({

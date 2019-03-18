@@ -28,8 +28,8 @@ namespace Way2Buy.DataPersistenceLayer.Concrete
                 var pdt = _dbContext.Products.FirstOrDefault(x => x.ProductId  == product.ProductId);
                 if (pdt != null)
                 {
-                    pdt.Name = product.Name;
-                    pdt.Description = product.Description;
+                    pdt.Name = product.Name.Trim();
+                    pdt.Description = product.Description.Trim();
                     pdt.CategoryId = product.CategoryId;
                     pdt.Price = product.Price;
                     pdt.IsOfferItem = product.IsOfferItem;
