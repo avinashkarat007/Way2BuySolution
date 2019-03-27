@@ -1,0 +1,20 @@
+﻿<emp-count *ngIf="employees" [all]="getTotalEmployeesCount()" [male]="getTotalMaleEmployeesCount()" [female]="getTotalFemaleEmployeesCount()" (countRadioButtonSelectionChanged)="onEmployeeCountRadioButtonChange($event)">    
+</emp-count>
+
+<br/>
+<br/>
+
+<button (click)="getEmpCount()">Click Me</button>
+
+Emp Count : {{empCount}}
+
+<table class="table">
+    <ng-container *ngFor="let emp of employees;">
+        <tr *ngIf="selectedEmployeeCountRadioButton === emp.gender">
+            <td>{{emp.code | uppercase}}</td>
+            <td> {{emp.name | employeeTitle:emp.gender}}</td>
+            <td> {{emp.gender}}</td>
+            <td> {{emp.annualSalary | currency:'USD':true}}</td>
+        </tr>  
+    </ng-container>  
+</table>

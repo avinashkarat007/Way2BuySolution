@@ -9,12 +9,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.name = 'Angular 7';
+        this.pageHeader = "Employee Details";
+        this.image = "https://www.ust-global.com/sites/default/files/logo_2_0.png";
     }
+    AppComponent.prototype.onClick = function () {
+        console.log("I am clicked");
+    };
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: "<h4> Avinash's {{name}}</h4>",
+            selector: 'starting-app',
+            templateUrl: 'app/app.component.html'
         })
     ], AppComponent);
     return AppComponent;

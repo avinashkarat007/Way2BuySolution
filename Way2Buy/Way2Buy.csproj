@@ -314,6 +314,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="SQL Scripts\script.sql" />
     <Content Include="SQL Scripts\Way2BuyData.sql" />
+    <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\employee\employee.component.html" />
+    <Content Include="src\app\employee\employeeCount.component.html" />
+    <Content Include="src\app\employee\employeeList.component.html" />
     <Content Include="src\favicon.ico" />
     <Content Include="src\styles.css" />
     <Content Include="src\systemjs-angular-loader.js" />
@@ -425,6 +429,11 @@
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\employee\employee.component.ts" />
+    <TypeScriptCompile Include="src\app\employee\employee.service.ts" />
+    <TypeScriptCompile Include="src\app\employee\employeeCount.component.ts" />
+    <TypeScriptCompile Include="src\app\employee\employeeList.component.ts" />
+    <TypeScriptCompile Include="src\app\employee\employeeTitle.pipe.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <PropertyGroup>
