@@ -10,8 +10,9 @@ import { EmployeeService } from "./employee.service"
 export class EmployeeListComponent implements OnInit, OnDestroy {
     employees: any[];
     selectedEmployeeCountRadioButton: string = "All";
+    
 
-    empCount:number = 0;
+    empCount:string = " ";
 
     constructor(private empService: EmployeeService) {
         //this.employees = [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
@@ -30,9 +31,8 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.empService.getEmployees()
-            .subscribe(empData => {
-                console.log("inside subscribe method");                
-                this.employees = empData;
+            .subscribe((empData) => {                                
+                this.employees = empData;                
             });
     }
 
@@ -57,6 +57,6 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     }
 
     getEmpCount(): any {
-        this.empCount = this.employees.length;
+        return this.empCount;
     }
 }

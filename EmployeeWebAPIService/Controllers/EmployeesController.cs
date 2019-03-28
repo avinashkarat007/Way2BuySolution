@@ -17,6 +17,11 @@ namespace EmployeeWebAPIService.Controllers
             }
         }
 
+        //public string Get()
+        //{
+        //    return "this is from WebAPI";
+        //}
+
         public IEnumerable<EmployeesUpdated> Get(string empCode)
         {
             using (EmployeeDBEntities dbContext = new EmployeeDBEntities())

@@ -4,13 +4,9 @@
 <br/>
 <br/>
 
-<button (click)="getEmpCount()">Click Me</button>
-
-Emp Count : {{empCount}}
-
 <table class="table">
     <ng-container *ngFor="let emp of employees;">
-        <tr *ngIf="selectedEmployeeCountRadioButton === emp.gender">
+        <tr>
             <td>{{emp.code | uppercase}}</td>
             <td> {{emp.name | employeeTitle:emp.gender}}</td>
             <td> {{emp.gender}}</td>

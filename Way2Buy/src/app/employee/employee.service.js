@@ -18,7 +18,7 @@ var EmployeeService = /** @class */ (function () {
     }
     EmployeeService.prototype.getEmployees = function () {
         return this._http.get("http://localhost/EmployeeWebAPIService/api/employees/")
-            .map(function (response) { response.json(); });
+            .map(function (response) { return response.json(); });
         //return [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
         //    { code: "emp2", name: "Mary", gender: "Female", annualSalary: 15000 },
         //    { code: "emp3", name: "Jerry", gender: "Male", annualSalary: 10000 },

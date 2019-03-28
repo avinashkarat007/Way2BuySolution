@@ -15,7 +15,7 @@ var EmployeeListComponent = /** @class */ (function () {
     function EmployeeListComponent(empService) {
         this.empService = empService;
         this.selectedEmployeeCountRadioButton = "All";
-        this.empCount = 0;
+        this.empCount = " ";
         //this.employees = [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
         //    { code: "emp2", name: "Mary", gender: "Female", annualSalary: 15000 },
         //    { code: "emp3", name: "Jerry", gender: "Male", annualSalary: 10000 },
@@ -33,7 +33,6 @@ var EmployeeListComponent = /** @class */ (function () {
         var _this = this;
         this.empService.getEmployees()
             .subscribe(function (empData) {
-            console.log("inside subscribe method");
             _this.employees = empData;
         });
     };
@@ -53,7 +52,7 @@ var EmployeeListComponent = /** @class */ (function () {
         this.selectedEmployeeCountRadioButton = selectedRadioButtonValue;
     };
     EmployeeListComponent.prototype.getEmpCount = function () {
-        this.empCount = this.employees.length;
+        return this.empCount;
     };
     EmployeeListComponent = __decorate([
         core_1.Component({

@@ -13,7 +13,7 @@ export class EmployeeService {
     getEmployees(): Observable<any> {
 
         return this._http.get("http://localhost/EmployeeWebAPIService/api/employees/")
-                    .map((response: Response) => { <any>response.json() });
+                    .map((response: Response) => { return response.json() as any; });
 
         //return [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
         //    { code: "emp2", name: "Mary", gender: "Female", annualSalary: 15000 },
