@@ -15,6 +15,7 @@ var EmployeeListComponent = /** @class */ (function () {
     function EmployeeListComponent(empService) {
         this.empService = empService;
         this.selectedEmployeeCountRadioButton = "All";
+        this.statusMessage = "Loading data, please wait....";
         //this.employees = [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
         //    { code: "emp2", name: "Mary", gender: "Female", annualSalary: 15000 },
         //    { code: "emp3", name: "Jerry", gender: "Male", annualSalary: 10000 },
@@ -33,6 +34,8 @@ var EmployeeListComponent = /** @class */ (function () {
         this.empService.getEmployees()
             .subscribe(function (empData) {
             _this.employees = empData;
+        }, function (error) {
+            _this.statusMessage = "Problem with service, please try again";
         });
     };
     EmployeeListComponent.prototype.ngOnDestroy = function () {

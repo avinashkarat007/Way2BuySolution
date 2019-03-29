@@ -11,14 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var observable_1 = require("rxjs/observable");
 require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 var EmployeeService = /** @class */ (function () {
     function EmployeeService(_http) {
         this._http = _http;
     }
     EmployeeService.prototype.getEmployees = function () {
         return this._http.get("http://localhost/EmployeeWebAPIService/api/employees/")
-            .map(function (response) { return response.json(); });
+            .map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
         //return [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
         //    { code: "emp2", name: "Mary", gender: "Female", annualSalary: 15000 },
         //    { code: "emp3", name: "Jerry", gender: "Male", annualSalary: 10000 },
@@ -31,6 +35,10 @@ var EmployeeService = /** @class */ (function () {
         //    { code: "emp9", name: "Chris", gender: "Male", annualSalary: 40000 },
         //    { code: "emp9", name: "John", gender: "Male", annualSalary: 230000 }
         //];
+    };
+    EmployeeService.prototype.handleError = function (error) {
+        console.log(error);
+        return observable_1.Observable.throw(error);
     };
     EmployeeService = __decorate([
         core_1.Injectable(),

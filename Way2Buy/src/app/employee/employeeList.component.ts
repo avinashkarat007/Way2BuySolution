@@ -11,6 +11,8 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     employees: any[];
 
     selectedEmployeeCountRadioButton: string = "All";
+
+    statusMessage:string = "Loading data, please wait....";
  
     constructor(private empService: EmployeeService) {
         //this.employees = [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
@@ -30,8 +32,11 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.empService.getEmployees()
             .subscribe((empData) => {                                
-                this.employees = empData;                
-            });
+                        this.employees = empData;                
+                    },
+                    (error) => {
+                        this.statusMessage = "Problem with service, please try again";
+                    });
     }
 
     ngOnDestroy() {

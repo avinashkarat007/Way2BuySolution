@@ -2,6 +2,7 @@
 import { Http, Response } from '@angular/http'
 import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class EmployeeService {
@@ -13,7 +14,9 @@ export class EmployeeService {
     getEmployees(): Observable<any> {
 
         return this._http.get("http://localhost/EmployeeWebAPIService/api/employees/")
-                    .map((response: Response) => { return response.json() as any; });
+            .map((response: Response) => {
+                return response.json() as any;
+            }).catch(this.handleError);
 
         //return [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
         //    { code: "emp2", name: "Mary", gender: "Female", annualSalary: 15000 },
@@ -28,4 +31,11 @@ export class EmployeeService {
         //    { code: "emp9", name: "John", gender: "Male", annualSalary: 230000 }
         //];
     }
+
+
+    handleError(error: Response) {
+        console.log(error);
+        return Observable.throw(error);
+    }
+
 }
