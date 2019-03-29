@@ -9,11 +9,9 @@ import { EmployeeService } from "./employee.service"
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
     employees: any[];
+
     selectedEmployeeCountRadioButton: string = "All";
-    
-
-    empCount:string = " ";
-
+ 
     constructor(private empService: EmployeeService) {
         //this.employees = [{ code: "emp1", name: "Tom", gender: "Male", annualSalary: 55000 },
         //    { code: "emp2", name: "Mary", gender: "Female", annualSalary: 15000 },
@@ -54,9 +52,5 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
 
     onEmployeeCountRadioButtonChange(selectedRadioButtonValue: string): void {
         this.selectedEmployeeCountRadioButton = selectedRadioButtonValue;
-    }
-
-    getEmpCount(): any {
-        return this.empCount;
     }
 }
