@@ -17,12 +17,7 @@ var EmployeeCountComponent = /** @class */ (function () {
     }
     EmployeeCountComponent.prototype.onRadioButtonSelectionChange = function () {
         this.countRadioButtonSelectionChanged.emit(this.selectedRadioButtonValue);
-        console.log(this.selectedRadioButtonValue);
     };
-    __decorate([
-        core_1.Output(),
-        __metadata("design:type", core_1.EventEmitter)
-    ], EmployeeCountComponent.prototype, "countRadioButtonSelectionChanged", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Number)
@@ -35,6 +30,10 @@ var EmployeeCountComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", Number)
     ], EmployeeCountComponent.prototype, "female", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", core_1.EventEmitter)
+    ], EmployeeCountComponent.prototype, "countRadioButtonSelectionChanged", void 0);
     EmployeeCountComponent = __decorate([
         core_1.Component({
             selector: 'emp-count',
