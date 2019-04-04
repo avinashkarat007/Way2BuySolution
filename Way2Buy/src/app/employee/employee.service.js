@@ -36,6 +36,12 @@ var EmployeeService = /** @class */ (function () {
         //    { code: "emp9", name: "John", gender: "Male", annualSalary: 230000 }
         //];
     };
+    EmployeeService.prototype.getEmployeesByCode = function (empCode) {
+        return this._http.get("http://localhost/EmployeeWebAPIService/api/employees/" + empCode)
+            .map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
     EmployeeService.prototype.handleError = function (error) {
         console.log(error);
         return observable_1.Observable.throw(error);

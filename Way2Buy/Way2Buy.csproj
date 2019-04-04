@@ -434,6 +434,8 @@
     <TypeScriptCompile Include="src\app\employee\employeeCount.component.ts" />
     <TypeScriptCompile Include="src\app\employee\employeeList.component.ts" />
     <TypeScriptCompile Include="src\app\employee\employeeTitle.pipe.ts" />
+    <TypeScriptCompile Include="src\app\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\Others\pagenotfound.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <PropertyGroup>

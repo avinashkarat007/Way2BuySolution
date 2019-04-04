@@ -1,20 +1,29 @@
-﻿import { Component } from "@angular/core"
+﻿import { Component, OnInit } from "@angular/core"
+import { ActivatedRoute } from "@angular/router"
+import { EmployeeService } from "./employee.service"
 
 @Component({
     selector: 'my-employee',
     templateUrl: 'app/employee/employee.component.html'
 })
-export class EmployeeComponent {
-    firstName: string = "James";
-    lastName: string = "Bond";
-    age: number = 30;
-    gender: string = "Male";
-    showDetails: boolean = false;
+export class EmployeeComponent implements OnInit {
+    employee: any;
+    statusMessage:string ="";
 
-    name:string = "Tom";
-
-
-    toggleDetails(): void {
-        this.showDetails = !this.showDetails;
+    constructor(private _empService: EmployeeService, private _activatedRoute: ActivatedRoute ) {
+        
     }
+
+    ngOnInit() {
+        var empCode: string = this._activatedRoute.snapshot.params["code"];
+
+        this._empService.getEmployeesByCode(empCode).subscribe((empData) => {
+            this.employee = empData;
+        }, (error) => {
+            this.statusMessage = "Problem with service";
+            console.log(error);
+        });
+    }
+
+
 }

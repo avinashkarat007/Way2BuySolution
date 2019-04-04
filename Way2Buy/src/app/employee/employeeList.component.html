@@ -9,12 +9,17 @@
 <br/>
 
 <table class="table">
+    <tr *ngIf="!employees">
+        <td colspan="5">
+            {{statusMessage}}
+        </td>
+    </tr>
     <ng-container *ngFor="let emp of employees;">
         <tr *ngIf="selectedEmployeeCountRadioButton == 'All' || selectedEmployeeCountRadioButton == emp.gender">
-            <td>{{emp.code | uppercase}}</td>
+            <td><a [routerLink]="['/employees',emp.code]"> {{emp.code | uppercase}} </a></td>
             <td> {{emp.name | employeeTitle:emp.gender}}</td>
             <td> {{emp.gender}}</td>
             <td> {{emp.annualSalary | currency:'USD':true}}</td>
-        </tr> 
-    </ng-container>  
+        </tr>
+    </ng-container>
 </table>

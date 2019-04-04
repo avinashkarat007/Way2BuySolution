@@ -1,29 +1,18 @@
 ﻿<table class="table">
     <tr>
-        <td>First Name</td>
-        <td> {{firstName}}</td>
+        <td>Employee Code</td>
+        <td> {{emp.code}}</td>
     </tr>    
     <tr>
-        <td>Last Name</td>
-        <td> {{lastName}}</td>
+        <td>Name</td>
+        <td> {{emp.name}}</td>
     </tr>    
     <tr *ngIf="showDetails">
         <td>Gender</td>
-        <td> {{gender}}</td>
+        <td> {{emp.gender}}</td>
     </tr>    
-    <tr *ngIf="showDetails">
-        <td>Age</td>
-        <td> {{age}}</td>
-    </tr>
+
 </table>
 
 <br/>
 
-<button (click)='toggleDetails()'>{{ showDetails? "Hide" : "Show" }} Data </button>
-
-<br/>
-<br />
-Enter the name : 
-<input [(ngModel)]='name'/>
-<br/>
-You entered : {{name}}

@@ -33,6 +33,14 @@ export class EmployeeService {
     }
 
 
+    getEmployeesByCode(empCode:string): Observable<any> {
+
+        return this._http.get("http://localhost/EmployeeWebAPIService/api/employees/" + empCode)
+            .map((response: Response) => {
+                return response.json() as any;
+            }).catch(this.handleError);
+    }
+
     handleError(error: Response) {
         console.log(error);
         return Observable.throw(error);
