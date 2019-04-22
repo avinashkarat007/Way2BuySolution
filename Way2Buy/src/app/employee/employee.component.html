@@ -1,18 +1,16 @@
-﻿<table class="table">
+﻿<table class="table" *ngIf="employee">
     <tr>
         <td>Employee Code</td>
-        <td> {{emp.code}}</td>
+        <td> {{employee.code}}</td>
     </tr>    
     <tr>
         <td>Name</td>
-        <td> {{emp.name}}</td>
+        <td> {{employee.name}}</td>
     </tr>    
-    <tr *ngIf="showDetails">
+    <tr>
         <td>Gender</td>
-        <td> {{emp.gender}}</td>
+        <td> {{employee.gender}}</td>
     </tr>    
-
 </table>
-
 <br/>
 

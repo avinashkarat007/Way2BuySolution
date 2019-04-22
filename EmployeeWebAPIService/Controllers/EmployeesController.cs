@@ -17,16 +17,12 @@ namespace EmployeeWebAPIService.Controllers
             }
         }
 
-        //public string Get()
-        //{
-        //    return "this is from WebAPI";
-        //}
-
-        public IEnumerable<EmployeesUpdated> Get(string empCode)
+        public EmployeesUpdated Get(string empCode)
         {
             using (EmployeeDBEntities dbContext = new EmployeeDBEntities())
             {
-                return dbContext.EmployeesUpdated.Where(x => x.code == empCode).ToList();
+                var employee = dbContext.EmployeesUpdated.FirstOrDefault(x => x.code == empCode);
+                return employee;
             }
         }
 

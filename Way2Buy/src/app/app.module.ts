@@ -11,7 +11,7 @@ import { EmployeeTitlePipe } from "./employee/employeeTitle.pipe";
 import { EmployeeCountComponent } from "./employee/employeeCount.component";
 import { HomeComponent } from "./home/home.component";
 import { PageNotFoundComponent } from "./Others/pagenotfound.component";
-
+import { EmployeeService } from "./employee/employee.service"
 
 const appRoutes: Routes = [
     {
@@ -34,6 +34,7 @@ const appRoutes: Routes = [
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes)],
     declarations: [AppComponent, EmployeeComponent, EmployeeListComponent, EmployeeTitlePipe, EmployeeCountComponent, HomeComponent, PageNotFoundComponent],
-    bootstrap:    [AppComponent]
+    bootstrap: [AppComponent],
+    providers: [EmployeeService]
 })
 export class AppModule { }

@@ -22,7 +22,12 @@ var EmployeeComponent = /** @class */ (function () {
         var _this = this;
         var empCode = this._activatedRoute.snapshot.params["code"];
         this._empService.getEmployeesByCode(empCode).subscribe(function (empData) {
-            _this.employee = empData;
+            if (empData) {
+                var something = empData;
+                console.log(something.length);
+                console.log(something.name);
+                _this.employee = empData;
+            }
         }, function (error) {
             _this.statusMessage = "Problem with service";
             console.log(error);

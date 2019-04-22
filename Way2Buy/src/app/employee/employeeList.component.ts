@@ -4,8 +4,7 @@ import { EmployeeService } from "./employee.service"
 
 @Component({
     selector: 'emp-list',
-    templateUrl: 'app/employee/employeeList.component.html',
-    providers: [EmployeeService]
+    templateUrl: 'app/employee/employeeList.component.html'    
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
     employees: any[];
