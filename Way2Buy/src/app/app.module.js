@@ -16,12 +16,12 @@ var employee_component_1 = require("./employee/employee.component");
 var employeeList_component_1 = require("./employee/employeeList.component");
 var employeeTitle_pipe_1 = require("./employee/employeeTitle.pipe");
 var employeeCount_component_1 = require("./employee/employeeCount.component");
-var home_component_1 = require("./home/home.component");
-var pagenotfound_component_1 = require("./Others/pagenotfound.component");
+var product_component_1 = require("./Products/product.component");
+var home_component_1 = require("./Home/home.component");
 var employee_service_1 = require("./employee/employee.service");
 var appRoutes = [
     {
-        path: 'home', component: home_component_1.HomeComponent
+        path: 'home', component: product_component_1.ProductComponent
     },
     {
         path: 'employees', component: employeeList_component_1.EmployeeListComponent
@@ -33,7 +33,7 @@ var appRoutes = [
         path: '', redirectTo: '/home', pathMatch: 'full'
     },
     {
-        path: '**', component: pagenotfound_component_1.PageNotFoundComponent
+        path: '**', component: app_component_1.AppComponent
     }
 ];
 var AppModule = /** @class */ (function () {
@@ -42,7 +42,7 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, router_1.RouterModule.forRoot(appRoutes)],
-            declarations: [app_component_1.AppComponent, employee_component_1.EmployeeComponent, employeeList_component_1.EmployeeListComponent, employeeTitle_pipe_1.EmployeeTitlePipe, employeeCount_component_1.EmployeeCountComponent, home_component_1.HomeComponent, pagenotfound_component_1.PageNotFoundComponent],
+            declarations: [app_component_1.AppComponent, employee_component_1.EmployeeComponent, employeeList_component_1.EmployeeListComponent, employeeTitle_pipe_1.EmployeeTitlePipe, employeeCount_component_1.EmployeeCountComponent, product_component_1.ProductComponent, home_component_1.HomeComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [employee_service_1.EmployeeService]
         })

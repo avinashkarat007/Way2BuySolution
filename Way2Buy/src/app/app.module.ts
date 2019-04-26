@@ -9,13 +9,13 @@ import { EmployeeComponent } from "./employee/employee.component";
 import { EmployeeListComponent } from "./employee/employeeList.component";
 import { EmployeeTitlePipe } from "./employee/employeeTitle.pipe";
 import { EmployeeCountComponent } from "./employee/employeeCount.component";
-import { HomeComponent } from "./home/home.component";
-import { PageNotFoundComponent } from "./Others/pagenotfound.component";
+import { ProductComponent } from "./Products/product.component";
+import { HomeComponent } from "./Home/home.component";
 import { EmployeeService } from "./employee/employee.service"
 
 const appRoutes: Routes = [
     {
-        path: 'home', component: HomeComponent
+        path: 'home', component: ProductComponent
     },
     {
         path: 'employees', component: EmployeeListComponent
@@ -27,13 +27,14 @@ const appRoutes: Routes = [
         path: '', redirectTo : '/home', pathMatch : 'full'
     },
     {
-        path: '**', component: PageNotFoundComponent
-    }];
+        path: '**', component: AppComponent
+    }
+];
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, EmployeeComponent, EmployeeListComponent, EmployeeTitlePipe, EmployeeCountComponent, HomeComponent, PageNotFoundComponent],
+    declarations: [AppComponent, EmployeeComponent, EmployeeListComponent, EmployeeTitlePipe, EmployeeCountComponent, ProductComponent, HomeComponent],
     bootstrap: [AppComponent],
     providers: [EmployeeService]
 })

@@ -10,27 +10,16 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("Product", "Index", "Product")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
-            @Html.Partial("_LoginPartial")
-        </div>
-    </div>
-</div>
+
 <div class="container body-content">
-    @*<div class="jumbotron">
+    <div class="jumbotron">
         <h1>Way2Buy</h1>
-        <p class="lead">Buy everything under sun!</p>    
-    </div>*@
+        <p class="lead">Buy everything under sun.</p>    
+    </div>
     @RenderBody()
     <hr/>
     <footer>
-        <p>&copy; @DateTime.Now.Year - Way2Buy</p>
+        
     </footer>
 </div>
 </body>

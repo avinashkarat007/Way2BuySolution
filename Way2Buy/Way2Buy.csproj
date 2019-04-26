@@ -318,6 +318,7 @@
     <Content Include="src\app\employee\employee.component.html" />
     <Content Include="src\app\employee\employeeCount.component.html" />
     <Content Include="src\app\employee\employeeList.component.html" />
+    <Content Include="src\app\Home\home.component.html" />
     <Content Include="src\favicon.ico" />
     <Content Include="src\styles.css" />
     <Content Include="src\systemjs-angular-loader.js" />
@@ -434,8 +435,8 @@
     <TypeScriptCompile Include="src\app\employee\employeeCount.component.ts" />
     <TypeScriptCompile Include="src\app\employee\employeeList.component.ts" />
     <TypeScriptCompile Include="src\app\employee\employeeTitle.pipe.ts" />
-    <TypeScriptCompile Include="src\app\home\home.component.ts" />
-    <TypeScriptCompile Include="src\app\Others\pagenotfound.component.ts" />
+    <TypeScriptCompile Include="src\app\Products\product.component.ts" />
+    <TypeScriptCompile Include="src\app\Home\home.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <PropertyGroup>
