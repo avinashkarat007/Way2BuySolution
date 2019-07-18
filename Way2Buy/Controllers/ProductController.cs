@@ -29,7 +29,7 @@ namespace Way2Buy.Controllers
         {
             if (!string.IsNullOrEmpty(nameSearch))
             {
-                nameSearch = nameSearch.ToLower();
+                nameSearch = nameSearch.Trim().ToLower();
             }
 
             var model = new ProductListViewModel
@@ -52,10 +52,10 @@ namespace Way2Buy.Controllers
 
         [AcceptVerbs(HttpVerbs.Post|HttpVerbs.Get)]
         public ActionResult GetSearchActionResult(string nameSearch, int page = 1, int pageSize = 5)
-        {
+        {            
             if (!string.IsNullOrEmpty(nameSearch))
             {
-                nameSearch = nameSearch.ToLower();
+                nameSearch = nameSearch.Trim().ToLower();
             }
 
             var model = new ProductListViewModel
@@ -109,23 +109,23 @@ namespace Way2Buy.Controllers
                 .Select(x => new { x.Key, x.Value.Errors })
                 .ToArray();
 
-            if (ModelState.IsValid)
+
+            if (image != null)
             {
-                if (image != null)
-                {
-                    product.ImageMimeType = image.ContentType;
-                    product.ImageData = new byte[image.ContentLength];
-                    image.InputStream.Read(product.ImageData, 0, image.ContentLength);
-                }
-                _dbContextProductRepository.SaveProduct(product);
+                product.ImageMimeType = image.ContentType;
+                product.ImageData = new byte[image.ContentLength];
+                image.InputStream.Read(product.ImageData, 0, image.ContentLength);
             }
+
+            _dbContextProductRepository.SaveProduct(product);
+            
             return RedirectToAction("Index");
         }
 
-        // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Product/Delete/5        
+        public ActionResult Delete(int productId)
         {
-            var product = _dbContextProductRepository.GetProduct(id);
+            var product = _dbContextProductRepository.GetProduct(productId);
             if (product == null)
             {
                 return HttpNotFound();

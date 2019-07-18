@@ -33,7 +33,7 @@ var appRoutes = [
         path: '', redirectTo: '/home', pathMatch: 'full'
     },
     {
-        path: '**', component: app_component_1.AppComponent
+        path: '**', component: home_component_1.HomeComponent
     }
 ];
 var AppModule = /** @class */ (function () {
