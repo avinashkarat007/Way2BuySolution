@@ -1,6 +1,6 @@
 ﻿@model Way2Buy.Models.ProductListViewModel
 
-    
+   
 @if (!Model.Products.Any())
 {
     <tr>
@@ -23,7 +23,7 @@ else
             </td>
             <td>
                 @Html.ActionLink("Edit", "Create", new { productId = item.ProductId }, new { @class = "btn btn-link" }) |                
-                <input id="deleteProduct" type="button" class="btn btn-link" value="Delete"  />
+                <input type="button" class="btn btn-link deleteProduct" value="Delete"  />                
             </td>
         </tr>
     }
@@ -38,15 +38,31 @@ else
     </tr>
 }
 
-
 <script>
 
     $(document).ready(function() {
 
-        $("#deleteProduct").on("click", function() {
+        $(".deleteProduct").on("click", function () {
+            
             var retVal = confirm("Are you sure you want to delete this product ?");
             if (retVal === true) {
-                alert("User wants to continue!");                
+                alert("User wants to continue!");
+
+                var resultValue = $('#ItemsPerPage').val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("GetSearchActionResult", "Product")",
+                    data: {
+                        pageSize: resultValue
+                    },
+                    success: function (data) {
+                        $("#productRow").html(data);
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+
             }
         });        
     });
