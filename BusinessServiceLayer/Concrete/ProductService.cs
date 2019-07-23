@@ -26,6 +26,7 @@ namespace BusinessServiceLayer.Concrete
             }
         }
 
+
         public Product DeleteProduct(int categoryId)
         {
             throw new NotImplementedException();
