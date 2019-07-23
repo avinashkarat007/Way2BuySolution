@@ -11,7 +11,7 @@ namespace BusinessServiceLayer.Concrete
 {
     public class ProductService : IProductService
     {
-        private IProductRepository productRepository;
+        private readonly IProductRepository productRepository;
 
         public ProductService(IProductRepository ProductRepository)
         {
@@ -20,26 +20,23 @@ namespace BusinessServiceLayer.Concrete
 
         public IEnumerable<Product> Products
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return this.productRepository.Products; }
         }
 
 
         public Product DeleteProduct(int categoryId)
         {
-            throw new NotImplementedException();
+            return this.productRepository.DeleteProduct(categoryId);
         }
 
         public Product GetProduct(int categoryId)
         {
-            throw new NotImplementedException();
+            return this.productRepository.GetProduct(categoryId);
         }
 
-        public void SaveProduct(Product category)
+        public void SaveProduct(Product product)
         {
-            throw new NotImplementedException();
+            this.productRepository.SaveProduct(product);
         }
     }
 }

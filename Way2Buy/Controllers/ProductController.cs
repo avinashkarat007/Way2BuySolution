@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessServiceLayer.Abstract;
 using Way2Buy.BusinessObjects.Entities;
 using Way2Buy.DataPersistenceLayer.Abstract;
 using Way2Buy.HTMLHelpers;
@@ -13,15 +14,11 @@ namespace Way2Buy.Controllers
     [Authorize]
     public class ProductController : Controller
     {
-        private readonly IProductRepository _dbContextProductRepository;
-
-        private readonly ICategoryRepository _dbContextCategoryRepository;
+        private readonly IProductService _productService;        
         
-
-        public ProductController(IProductRepository dbContextProductRepository, ICategoryRepository dbContextCategoryRepository)
+        public ProductController(IProductService productService)
         {
-            _dbContextProductRepository = dbContextProductRepository; 
-            _dbContextCategoryRepository = dbContextCategoryRepository;
+            _productService = productService;             
         }
 
         [AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
@@ -34,14 +31,14 @@ namespace Way2Buy.Controllers
 
             var model = new ProductListViewModel
             {
-                Products = _dbContextProductRepository.Products
+                Products = _productService.Products
                     .Where(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == "")
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToList(),
                 PageInfo = new PageInfo
                 {
-                    TotalItems = _dbContextProductRepository.Products.Count(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == ""),
+                    TotalItems = _productService.Products.Count(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == ""),
                     CurrentPage = page,
                     ItemsPerPage = pageSize
                 }
@@ -60,14 +57,14 @@ namespace Way2Buy.Controllers
 
             var model = new ProductListViewModel
             {
-                Products = _dbContextProductRepository.Products
+                Products = _productService.Products
                     .Where(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == "")
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToList(),
                 PageInfo = new PageInfo
                 {
-                    TotalItems = _dbContextProductRepository.Products.Count(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == ""),
+                    TotalItems = _productService.Products.Count(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == ""),
                     CurrentPage = page,
                     ItemsPerPage = pageSize
                 }
@@ -78,7 +75,7 @@ namespace Way2Buy.Controllers
         
         public JsonResult GetProductNames(string term)
         {
-            List<string> productNames = _dbContextProductRepository.Products
+            List<string> productNames = _productService.Products
                 .Where(x => x.Name.ToLower().Trim().StartsWith(term))
                 .Select(x => x.Name)
                 .ToList();
@@ -86,9 +83,10 @@ namespace Way2Buy.Controllers
             return Json(productNames, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Product/Create
-        public ActionResult Create(int? productId)
-        {
+        // Need to work on getting the list of categories.
+
+        /*public ActionResult Create(int? productId)
+        {          
             var model = new ProductViewModel();
             var categories = _dbContextCategoryRepository.Categories.ToList();
             model.Categories = categories;
@@ -98,7 +96,8 @@ namespace Way2Buy.Controllers
                 model.Product = product;
             }
             return View("Save", model);
-        }
+
+        }*/
 
         // POST: Product/Create
         [HttpPost]
@@ -117,7 +116,7 @@ namespace Way2Buy.Controllers
                 image.InputStream.Read(product.ImageData, 0, image.ContentLength);
             }
 
-            _dbContextProductRepository.SaveProduct(product);
+            _productService.SaveProduct(product);
             
             return RedirectToAction("Index");
         }
@@ -125,7 +124,7 @@ namespace Way2Buy.Controllers
         // GET: Product/Delete/5        
         public ActionResult Delete(int productId)
         {
-            var product = _dbContextProductRepository.GetProduct(productId);
+            var product = _productService.GetProduct(productId);
             if (product == null)
             {
                 return HttpNotFound();
@@ -138,13 +137,13 @@ namespace Way2Buy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var category = _dbContextProductRepository.DeleteProduct(id);
+            var category = _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
 
         public FileContentResult GetImage(int productId)
         {
-            var prod = _dbContextProductRepository.GetProduct(productId);
+            var prod = _productService.GetProduct(productId);
 
             return prod != null ? File(prod.ImageData, prod.ImageMimeType) : null;
         }

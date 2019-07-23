@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessServiceLayer.Abstract;
+using BusinessServiceLayer.Concrete;
 using Unity;
 using Way2Buy.BusinessObjects.Concrete;
 using Way2Buy.BusinessObjects.Helpers;
@@ -33,6 +35,7 @@ namespace Way2Buy.App_Start
             container.RegisterType<ICategoryRepository, EfCategoryRepository>();
             container.RegisterType<IProductRepository, EfProductRepository>();
             container.RegisterType<IAuthProvider,FormsAuthProvider>();
+            container.RegisterType<IProductService, ProductService>();
         }
     }
 }

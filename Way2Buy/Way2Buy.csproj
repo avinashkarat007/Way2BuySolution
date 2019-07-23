@@ -385,6 +385,10 @@
     <Content Include="src\tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessServiceLayer\BusinessServiceLayer.csproj">
+      <Project>{457c77fd-9193-49af-9e24-341e79287ba5}</Project>
+      <Name>BusinessServiceLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Way2Buy.BusinessObjects\Way2Buy.BusinessObjects.csproj">
       <Project>{17b79db8-c29e-40a0-b4af-d0da889b2a6b}</Project>
       <Name>Way2Buy.BusinessObjects</Name>
