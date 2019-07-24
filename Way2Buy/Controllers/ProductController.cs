@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BusinessServiceLayer.Abstract;
+using Logger.Abstract;
 using Way2Buy.BusinessObjects.Entities;
-using Way2Buy.DataPersistenceLayer.Abstract;
 using Way2Buy.HTMLHelpers;
 using Way2Buy.Models;
 
@@ -14,92 +14,50 @@ namespace Way2Buy.Controllers
     [Authorize]
     public class ProductController : Controller
     {
-        private readonly IProductService _productService;        
-        
-        public ProductController(IProductService productService)
+        private readonly IProductService _productService;
+        private readonly ILogger _logService;
+
+        public ProductController(IProductService productService, ILogger logService)
         {
-            _productService = productService;             
+            _productService = productService;
+            _logService = logService;
         }
+
+        //public ProductController(IProductService productService)
+        //{
+        //    _productService = productService;
+        //    // _logService = logService;
+        //}
 
         [AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
         public ActionResult Index(string nameSearch, int page = 1, int pageSize = 5)
         {
-            if (!string.IsNullOrEmpty(nameSearch))
-            {
-                nameSearch = nameSearch.Trim().ToLower();
-            }
-
-            var model = new ProductListViewModel
-            {
-                Products = _productService.Products
-                    .Where(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == "")
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList(),
-                PageInfo = new PageInfo
-                {
-                    TotalItems = _productService.Products.Count(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == ""),
-                    CurrentPage = page,
-                    ItemsPerPage = pageSize
-                }
-            };
-
+            // _logService.LogMessage("Product added successfully");
+            var model = GetProductListViewModel(nameSearch, page, pageSize);        
             return View(model);
         }
 
         [AcceptVerbs(HttpVerbs.Post|HttpVerbs.Get)]
-        public ActionResult GetSearchActionResult(string nameSearch, int page = 1, int pageSize = 5)
-        {            
-            if (!string.IsNullOrEmpty(nameSearch))
-            {
-                nameSearch = nameSearch.Trim().ToLower();
-            }
-
-            var model = new ProductListViewModel
-            {
-                Products = _productService.Products
-                    .Where(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == "")
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList(),
-                PageInfo = new PageInfo
-                {
-                    TotalItems = _productService.Products.Count(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == ""),
-                    CurrentPage = page,
-                    ItemsPerPage = pageSize
-                }
-            };
-
+        public ActionResult GetSearchResults(string nameSearch, int page = 1, int pageSize = 5)
+        {
+            var model = GetProductListViewModel(nameSearch, page, pageSize);
             return PartialView("ProductListPartial", model);
         }
-        
-        public JsonResult GetProductNames(string term)
+
+        public ActionResult Create(int? productId)
         {
-            List<string> productNames = _productService.Products
-                .Where(x => x.Name.ToLower().Trim().StartsWith(term))
-                .Select(x => x.Name)
-                .ToList();
-
-            return Json(productNames, JsonRequestBehavior.AllowGet);
-        }
-
-        // Need to work on getting the list of categories.
-
-        /*public ActionResult Create(int? productId)
-        {          
             var model = new ProductViewModel();
-            var categories = _dbContextCategoryRepository.Categories.ToList();
+            var categories = _productService.GetCategories();
             model.Categories = categories;
             if (productId.HasValue)
             {
-                var product = _dbContextProductRepository.GetProduct(productId.Value);
+                var product = _productService.GetProduct(productId.Value);
                 model.Product = product;
             }
             return View("Save", model);
+        }
 
-        }*/
-
-        // POST: Product/Create
+        // POST: Product/Save
         [HttpPost]
         public ActionResult Save(Product product, HttpPostedFileBase image = null)
         {
@@ -117,7 +75,7 @@ namespace Way2Buy.Controllers
             }
 
             _productService.SaveProduct(product);
-            
+            // _logService.LogMessage("Product added successfully");
             return RedirectToAction("Index");
         }
 
@@ -141,11 +99,45 @@ namespace Way2Buy.Controllers
             return RedirectToAction("Index");
         }
 
+        public JsonResult GetProductNames(string term)
+        {
+            List<string> productNames = _productService.Products
+                .Where(x => x.Name.ToLower().Trim().StartsWith(term))
+                .Select(x => x.Name)
+                .ToList();
+
+            return Json(productNames, JsonRequestBehavior.AllowGet);
+        }
+                
         public FileContentResult GetImage(int productId)
         {
             var prod = _productService.GetProduct(productId);
 
             return prod != null ? File(prod.ImageData, prod.ImageMimeType) : null;
+        }
+
+        private ProductListViewModel GetProductListViewModel(string nameSearch, int page = 1, int pageSize = 5)
+        {
+            if (!string.IsNullOrEmpty(nameSearch))
+            {
+                nameSearch = nameSearch.Trim().ToLower();
+            }
+
+            var model = new ProductListViewModel
+            {
+                Products = _productService.Products
+                    .Where(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == "")
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList(),
+                PageInfo = new PageInfo
+                {
+                    TotalItems = _productService.Products.Count(p => p.Name.ToLower().Trim().Contains(nameSearch ?? string.Empty) || nameSearch == null || nameSearch == ""),
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize
+                }
+            };
+            return model;
         }
     }
 }

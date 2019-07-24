@@ -14,6 +14,6 @@ namespace Way2Buy.Models
         public Product Product { get; set; }
 
         [Display(Name = "Category")]
-        public List<Category> Categories { get; set; }        
+        public IEnumerable<Category> Categories { get; set; }        
     }
 }

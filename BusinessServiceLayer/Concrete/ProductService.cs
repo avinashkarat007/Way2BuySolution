@@ -11,32 +11,39 @@ namespace BusinessServiceLayer.Concrete
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepository productRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public ProductService(IProductRepository ProductRepository)
+        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
-            this.productRepository = ProductRepository;
+            this._productRepository = productRepository;
+            this._categoryRepository = categoryRepository;
         }
 
         public IEnumerable<Product> Products
         {
-            get { return this.productRepository.Products; }
+            get { return this._productRepository.Products; }
         }
-
 
         public Product DeleteProduct(int categoryId)
         {
-            return this.productRepository.DeleteProduct(categoryId);
+            return this._productRepository.DeleteProduct(categoryId);
         }
 
         public Product GetProduct(int categoryId)
         {
-            return this.productRepository.GetProduct(categoryId);
+            return this._productRepository.GetProduct(categoryId);
         }
 
         public void SaveProduct(Product product)
         {
-            this.productRepository.SaveProduct(product);
+            this._productRepository.SaveProduct(product);
+        }
+
+        public IEnumerable<Category> GetCategories()
+        {
+            var category = this._categoryRepository.Categories.ToList();
+            return category;
         }
     }
 }

@@ -51,7 +51,7 @@ else
                 var resultValue = $('#ItemsPerPage').val();
                 $.ajax({
                     type: "POST",
-                    url: "@Url.Action("GetSearchActionResult", "Product")",
+                    url: "@Url.Action("GetSearchResults", "Product")",
                     data: {
                         pageSize: resultValue
                     },

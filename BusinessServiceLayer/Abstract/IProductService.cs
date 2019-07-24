@@ -17,5 +17,7 @@ namespace BusinessServiceLayer.Abstract
         Product DeleteProduct(int categoryId);
 
         Product GetProduct(int categoryId);
+
+        IEnumerable<Category> GetCategories();
     }
 }

@@ -11,6 +11,8 @@ using Way2Buy.BusinessObjects.Helpers;
 using Way2Buy.DataPersistenceLayer.Abstract;
 using Way2Buy.DataPersistenceLayer.Concrete;
 using Way2Buy.Infrastructure;
+using Logger.Abstract;
+using Logger.Concrete;
 
 namespace Way2Buy.App_Start
 {
@@ -18,8 +20,7 @@ namespace Way2Buy.App_Start
     {
         public static IUnityContainer Initialise()
         {
-            var container = BuildUnityContainer();
-            DependencyResolver.SetResolver(new DemoUnityDependencyResolver(container));
+            var container = BuildUnityContainer();            
             return container;
         }
 
@@ -30,12 +31,14 @@ namespace Way2Buy.App_Start
             return container;
         } 
 
-        private static void RegisterServices(IUnityContainer container)
+        private static void RegisterServices(IUnityContainer container) 
         {
             container.RegisterType<ICategoryRepository, EfCategoryRepository>();
             container.RegisterType<IProductRepository, EfProductRepository>();
             container.RegisterType<IAuthProvider,FormsAuthProvider>();
             container.RegisterType<IProductService, ProductService>();
+            container.RegisterType<ILogger, LogService>();
+            DependencyResolver.SetResolver(new DemoUnityDependencyResolver(container));
         }
     }
 }

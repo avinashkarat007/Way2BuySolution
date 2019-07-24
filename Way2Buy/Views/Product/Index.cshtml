@@ -93,7 +93,7 @@
             var resultValue = $('#ItemsPerPage').val();
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("GetSearchActionResult", "Product")",
+                url: "@Url.Action("GetSearchResults", "Product")",
                 data: {
                     pageSize: resultValue
                 },
@@ -111,7 +111,7 @@
             var searchTerm = $("#nameSearch").val();
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("GetSearchActionResult", "Product")",
+                url: "@Url.Action("GetSearchResults", "Product")",
                 data: {
                     nameSearch: searchTerm
                 },
@@ -131,7 +131,7 @@
             var pageNumber = $(this).text();
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("GetSearchActionResult", "Product")",
+                url: "@Url.Action("GetSearchResults", "Product")",
                 data: {
                     page: pageNumber,
                     pageSize: $("#ItemsPerPage").val()

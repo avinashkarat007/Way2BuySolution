@@ -24,6 +24,8 @@ namespace Way2Buy
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             IocConfigurator.Initialise();
+
+            // Bootstrapper.Initialise();
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredAttributeAdapter));
         }
     }
