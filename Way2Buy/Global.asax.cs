@@ -7,7 +7,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Way2Buy.App_Start;
 using Way2Buy.BusinessObjects.Helpers;
 using Way2Buy.DataPersistenceLayer.Concrete;
 
@@ -23,9 +22,7 @@ namespace Way2Buy
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            IocConfigurator.Initialise();
-
-            // Bootstrapper.Initialise();
+            IocConfigurator.Initialise();            
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredAttributeAdapter));
         }
     }

@@ -17,17 +17,24 @@ namespace Way2Buy.Controllers
         private readonly IProductService _productService;
         private readonly ILogger _logService;
 
-        public ProductController(IProductService productService, ILogger logService)
+        public ProductController(IProductService productService)
+        {
+            _productService = productService;
+            // _logService = logService;
+        }
+
+        /* The below contructor is not working. Need to find out why. */
+        /*public ProductController(IProductService productService, ILogger logService)
         {
             _productService = productService;
             _logService = logService;
-        }
+        }*/
 
-        //public ProductController(IProductService productService)
-        //{
-        //    _productService = productService;
-        //    // _logService = logService;
-        //}
+        /*public ProductController(ILogger logService)
+        {
+            // _productService = productService;
+            _logService = logService;
+        }*/
 
         [AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
         public ActionResult Index(string nameSearch, int page = 1, int pageSize = 5)

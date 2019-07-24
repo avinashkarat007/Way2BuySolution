@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using BusinessServiceLayer.Abstract;
 using BusinessServiceLayer.Concrete;
+using Logger.Abstract;
+using Logger.Concrete;
 using Unity;
 using Way2Buy.BusinessObjects.Concrete;
 using Way2Buy.BusinessObjects.Helpers;
 using Way2Buy.DataPersistenceLayer.Abstract;
 using Way2Buy.DataPersistenceLayer.Concrete;
 using Way2Buy.Infrastructure;
-using Logger.Abstract;
-using Logger.Concrete;
 
-namespace Way2Buy.App_Start
+namespace Way2Buy
 {
     public class IocConfigurator
     {
